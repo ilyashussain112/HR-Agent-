@@ -41,6 +41,14 @@ def handle_password_update():
     db.update_password(emp_id, new_password)
 
 
+def handle_add_policy():
+    title = input("Enter policy title: ")
+    content = input("Enter policy content: ")
+    db.add_policy(title, content)
+
+def handle_view_policies():
+    db.view_policies()
+
 def main_menu():
     print("\n--- HR Agent Menu ---")
     print("1. View all employees (Admin)")
@@ -48,15 +56,15 @@ def main_menu():
     print("3. Update employee (Admin)")
     print("4. Delete employee (Admin)")
     print("5. Employee Portal (Self Service)")
-    print("6. update_password(Admin)")
-    print("7. Exit")
-
-    return input("Enter choice (1-7): ")
+    print("6. Update employee password (Admin)")
+    print("7. Add Company Policy (Admin)")
+    print("8. View Company Policies (All)")
+    print("9. Exit")
+    return input("Enter choice (1-9): ")
 
 def run():
     while True:
         choice = main_menu()
-
         actions = {
             "1": handle_view,
             "2": handle_add,
@@ -64,14 +72,14 @@ def run():
             "4": handle_delete,
             "5": handle_employee_portal,
             "6": handle_password_update,
-            "7": exit
+            "7": handle_add_policy,
+            "8": handle_view_policies,
+            "9": exit
         }
-
         action = actions.get(choice)
         if action:
             action()
         else:
             print("❌ Invalid choice, please try again.")
-
 if __name__ == "__main__":
     run()

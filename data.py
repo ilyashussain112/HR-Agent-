@@ -24,6 +24,31 @@ def employee_login(emp_id, password):
     return row
 
 
+# Add new policy
+def add_policy(title, content):
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute(
+        "INSERT INTO company_policies (title, content) VALUES (%s, %s)",
+        (title, content)
+    )
+    conn.commit()
+    print("✅ Policy added successfully!")
+    cur.close()
+    conn.close()
+
+# View all policies
+def view_policies():
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT id, title, content, created_at FROM company_policies;")
+    rows = cur.fetchall()
+    print("\n--- Company Policies ---")
+    for row in rows:
+        print(f"ID: {row[0]} | Title: {row[1]}\n{row[2]}\n(Added on: {row[3]})\n")
+    cur.close()
+    conn.close()
+
 def update_password(emp_id, new_password):
     conn = get_connection()
     cur = conn.cursor()
